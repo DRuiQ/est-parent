@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.est.mapper.AppointmentMapper">
+  <resultMap id="BaseResultMap" type="com.team.est.entity.Appointment">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="appointCode" jdbcType="VARCHAR" property="appointCode" />
+    <result column="userId" jdbcType="BIGINT" property="userId" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="appintDate" jdbcType="TIMESTAMP" property="appintDate" />
+    <result column="temporalInterval" jdbcType="INTEGER" property="temporalInterval" />
+    <result column="adress" jdbcType="VARCHAR" property="adress" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="createdUserId" jdbcType="BIGINT" property="createdUserId" />
+    <result column="updatedUserId" jdbcType="BIGINT" property="updatedUserId" />
+    <result column="creatdTime" jdbcType="TIMESTAMP" property="creatdTime" />
+    <result column="updatedTime" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="isDelete" jdbcType="INTEGER" property="isDelete" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, appointCode, userId, phone, appintDate, temporalInterval, adress, status, createdUserId, 
+    updatedUserId, creatdTime, updatedTime, isDelete
+  </sql>
+  <select id="selectByExample" parameterType="com.team.est.entity.AppointmentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from appointment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from appointment
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from appointment
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.team.est.entity.Appointment">
+    insert into appointment (id, appointCode, userId, 
+      phone, appintDate, temporalInterval, 
+      adress, status, createdUserId, 
+      updatedUserId, creatdTime, updatedTime, 
+      isDelete)
+    values (#{id,jdbcType=BIGINT}, #{appointCode,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, 
+      #{phone,jdbcType=VARCHAR}, #{appintDate,jdbcType=TIMESTAMP}, #{temporalInterval,jdbcType=INTEGER}, 
+      #{adress,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createdUserId,jdbcType=BIGINT}, 
+      #{updatedUserId,jdbcType=BIGINT}, #{creatdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, 
+      #{isDelete,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.team.est.entity.Appointment">
+    insert into appointment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="appointCode != null">
+        appointCode,
+      </if>
+      <if test="userId != null">
+        userId,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="appintDate != null">
+        appintDate,
+      </if>
+      <if test="temporalInterval != null">
+        temporalInterval,
+      </if>
+      <if test="adress != null">
+        adress,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createdUserId != null">
+        createdUserId,
+      </if>
+      <if test="updatedUserId != null">
+        updatedUserId,
+      </if>
+      <if test="creatdTime != null">
+        creatdTime,
+      </if>
+      <if test="updatedTime != null">
+        updatedTime,
+      </if>
+      <if test="isDelete != null">
+        isDelete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="appointCode != null">
+        #{appointCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="appintDate != null">
+        #{appintDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="temporalInterval != null">
+        #{temporalInterval,jdbcType=INTEGER},
+      </if>
+      <if test="adress != null">
+        #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createdUserId != null">
+        #{createdUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updatedUserId != null">
+        #{updatedUserId,jdbcType=BIGINT},
+      </if>
+      <if test="creatdTime != null">
+        #{creatdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.team.est.entity.Appointment">
+    update appointment
+    <set>
+      <if test="appointCode != null">
+        appointCode = #{appointCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        userId = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="appintDate != null">
+        appintDate = #{appintDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="temporalInterval != null">
+        temporalInterval = #{temporalInterval,jdbcType=INTEGER},
+      </if>
+      <if test="adress != null">
+        adress = #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createdUserId != null">
+        createdUserId = #{createdUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updatedUserId != null">
+        updatedUserId = #{updatedUserId,jdbcType=BIGINT},
+      </if>
+      <if test="creatdTime != null">
+        creatdTime = #{creatdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null">
+        updatedTime = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        isDelete = #{isDelete,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.team.est.entity.Appointment">
+    update appointment
+    set appointCode = #{appointCode,jdbcType=VARCHAR},
+      userId = #{userId,jdbcType=BIGINT},
+      phone = #{phone,jdbcType=VARCHAR},
+      appintDate = #{appintDate,jdbcType=TIMESTAMP},
+      temporalInterval = #{temporalInterval,jdbcType=INTEGER},
+      adress = #{adress,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      createdUserId = #{createdUserId,jdbcType=BIGINT},
+      updatedUserId = #{updatedUserId,jdbcType=BIGINT},
+      creatdTime = #{creatdTime,jdbcType=TIMESTAMP},
+      updatedTime = #{updatedTime,jdbcType=TIMESTAMP},
+      isDelete = #{isDelete,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
